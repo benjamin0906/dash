@@ -1,26 +1,32 @@
 cmake_minimum_required(VERSION 3.7.0)
 project(dash CXX)
 
+include(GNUInstallDirs)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 set(base_directory ${CMAKE_CURRENT_SOURCE_DIR})
+set(builddir ${CMAKE_BINARY_DIR})
 set(resources_directory ${base_directory}/assets)
 set(sources_directory ${base_directory}/src)
 set(include_directory ${base_directory}/include)
-set(plugins_directory ${base_directory}/plugins)
+set(plugins_src_directory ${base_directory}/plugins)
+set(bindir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}/dash)
+set(libdir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/dash)
+#set(libdir ${builddir}/lib)
 include(${base_directory}/cmake_modules/functions.cmake)
-
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${base_directory}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${base_directory}/bin)
-set(EXECUTABLE_OUTPUT_PATH ${base_directory}/bin)
+message("Binary dir: ${CMAKE_BINARY_DIR}")
+message("bindir: ${bindir}")
+message("libdir: ${libdir}")
+message("CMAKE_LIBRARY_OUTPUT_DIRECTORY: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
-SET(CMAKE_CXX_STANDARD 14)
+SET(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} -rdynamic)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_INIT} -Wall -pedantic -fPIC")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
@@ -151,4 +157,4 @@ target_link_libraries(dash
     ${TAGLIB_LIBRARIES}
     )
 
-install(TARGETS dash DESTINATION bin)
+install(TARGETS dash DESTINATION ${bindir})

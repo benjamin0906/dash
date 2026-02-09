@@ -9,14 +9,15 @@ MACRO(SUBDIRLIST result curdir)
   SET(${result} ${dirlist})
 ENDMACRO()
 
-SUBDIRLIST(plugin_types ${plugins_directory})
+SUBDIRLIST(plugin_types ${plugins_src_directory})
 
 FOREACH(plugin_type ${plugin_types})
-    SUBDIRLIST(plugins ${plugins_directory}/${plugin_type})
+    SUBDIRLIST(plugins ${plugins_src_directory}/${plugin_type})
     FOREACH(plugin ${plugins})
-        file(GLOB_RECURSE plugin_src_files ${plugins_directory}/${plugin_type}/${plugin}/*.cpp)
+        file(GLOB_RECURSE plugin_src_files ${plugins_src_directory}/${plugin_type}/${plugin}/*.cpp)
         add_library(${plugin} SHARED ${plugin_src_files})
-        set_target_properties(${plugin} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/plugins/${plugin_type})
+        message("cycle: ${libdir}/plugins/${plugin_type}")
+        set_target_properties(${plugin} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${builddir}/plugins/${plugin_type})
         target_include_directories(${plugin} SYSTEM PRIVATE
             ${Qt5Xml_INCLUDE_DIRS}
             ${Qt5WebSockets_INCLUDE_DIRS}
