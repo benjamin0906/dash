@@ -3,13 +3,13 @@ set (OPENAUTO_DIR ~/openauto)
 find_path(OPENAUTO_INCLUDE_DIR
     OpenautoLog.hpp
     PATHS ${OPENAUTO_DIR}
-    PATH_SUFFIXES include
+    PATH_SUFFIXES include/openauto
 )
 
 find_path(OPENAUTO_LIB_DIR
     libopenauto.so
     PATHS ${OPENAUTO_DIR}
-    PATH_SUFFIXES lib
+    PATH_SUFFIXES lib/openauto
 )
 
 if (OPENAUTO_INCLUDE_DIR AND OPENAUTO_LIB_DIR)
