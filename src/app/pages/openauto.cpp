@@ -8,7 +8,6 @@
 OpenAutoWorker::OpenAutoWorker(std::function<void(bool)> callback, bool night_mode, QWidget *frame, Arbiter &arbiter)
     : QObject(qApp),
       io_service(),
-      work(io_service),
       configuration(Config::get_instance()->openauto_config),
       tcp_wrapper(),
       usb_wrapper((libusb_init(&usb_context), usb_context)),
@@ -22,6 +21,7 @@ OpenAutoWorker::OpenAutoWorker(std::function<void(bool)> callback, bool night_mo
       app(std::make_shared<openauto::App>(io_service, usb_wrapper, tcp_wrapper, android_auto_entity_factory, usb_hub,
                                           connected_accessories_enumerator))
 {
+    work_guard = boost::asio::make_work_guard(io_service);
     this->create_usb_workers();
     this->create_io_service_workers();
 

@@ -42,8 +42,8 @@ class OpenAutoWorker : public QObject {
     void create_io_service_workers();
 
     libusb_context *usb_context;
-    boost::asio::io_service io_service;
-    boost::asio::io_service::work work;
+    boost::asio::io_context io_service;
+    boost::asio::executor_work_guard<boost::asio::io_context::executor_type> work_guard;
     std::shared_ptr<openauto::configuration::Configuration> configuration;
     aasdk::tcp::TCPWrapper tcp_wrapper;
     aasdk::usb::USBWrapper usb_wrapper;
