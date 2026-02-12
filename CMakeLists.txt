@@ -27,7 +27,7 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules/")
 SET(CMAKE_CXX_STANDARD 17)
-set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} -rdynamic)
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -rdynamic")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_INIT} -Wall -pedantic -fPIC")
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_CXX_FLAGS_RELEASE "-g -O3")
@@ -86,7 +86,6 @@ message(INFO "${GST_LIBRARIES}")
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 file(GLOB_RECURSE source_files ${sources_directory}/*.cpp ${include_directory}/*.hpp ${resources_directory}/*.qrc)
-
 add_subdirectory(plugins)
 
 add_executable(dash ${source_files})
