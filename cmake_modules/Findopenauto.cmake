@@ -9,7 +9,7 @@ find_path(OPENAUTO_INCLUDE_DIR
 find_path(OPENAUTO_LIB_DIR
     libopenauto.so
     PATHS ${OPENAUTO_DIR}
-    PATH_SUFFIXES lib/openauto
+    PATH_SUFFIXES lib
 )
 
 if (OPENAUTO_INCLUDE_DIR AND OPENAUTO_LIB_DIR)
